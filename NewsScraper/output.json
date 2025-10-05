@@ -1,0 +1,23 @@
+{
+  "generated_at": "YYYY-MM-DD",
+  "window": "last_24h",
+  "sources": [
+    {
+      "publisher_vendor": "string",
+      "source_url": "string",
+      "insights": [
+        {
+          "title": "string",
+          "source_url": "string",
+          "tags": ["string"],
+          "topic_tags": ["string"],
+          "summary": "string",
+          "why_it_matters": "string",
+          "relevance": "number",
+          "level": "string",
+          "published_at": "string"
+        }
+      ]
+    }
+  ],
+}
