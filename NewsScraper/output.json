@@ -1,6 +1,5 @@
 {
   "generated_at": "YYYY-MM-DD",
-  "window": "last_24h",
   "sources": [
     {
       "publisher_vendor": "string",
