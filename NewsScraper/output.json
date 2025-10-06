@@ -1,22 +1,49 @@
 {
-  "generated_at": "YYYY-MM-DD",
-  "sources": [
-    {
-      "publisher_vendor": "string",
-      "source_url": "string",
-      "insights": [
-        {
-          "title": "string",
-          "source_url": "string",
-          "tags": ["string"],
-          "topic_tags": ["string"],
-          "summary": "string",
-          "why_it_matters": "string",
-          "relevance": "number",
-          "level": "string",
-          "published_at": "string"
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["generated_at", "sources", "link_recommendations"],
+  "properties": {
+    "generated_at": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["publisher_vendor", "source_url", "insights"],
+        "properties": {
+          "publisher_vendor": { "type": "string" },
+          "source_url": { "type": "string", "format": "uri" },
+          "insights": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["title","article_url","publisher_vendor","tags","summary","relevance","level","published_at"],
+              "properties": {
+                "title": { "type": "string" },
+                "article_url": { "type": "string", "format": "uri" },
+                "publisher_vendor": { "type": "string" },
+                "tags": { "type": "array", "items": { "type": "string" }, "minItems": 1, "maxItems": 6 },
+                "summary": { "type": "string" },
+                "referenced_links": { "type": "array", "items": { "type": "string", "format": "uri" } },
+                "additional_vendors_mentioned": { "type": "array", "items": { "type": "string" } },
+                "relevance": { "type": "integer", "minimum": 0, "maximum": 100 },
+                "level": { "type": "string", "enum": ["High","Medium","Low"] },
+                "published_at": { "type": "string", "format": "date-time" }
+              }
+            }
+          }
         }
-      ]
+      }
+    },
+    "link_recommendations": {
+      "type": "object",
+      "required": ["checked_at","add","remove","update","monitor"],
+      "properties": {
+        "checked_at": { "type": "string", "format": "date-time" },
+        "add": { "type": "array", "items": { "type": "object", "required": ["url","vendor","category","reason","confidence"] } },
+        "remove": { "type": "array", "items": { "type": "object", "required": ["url","vendor","category","reason","confidence"] } },
+        "update": { "type": "array", "items": { "type": "object", "required": ["old_url","new_url","vendor","category","reason","confidence"] } },
+        "monitor": { "type": "array", "items": { "type": "object", "required": ["url","vendor","category","reason","confidence"] } }
+      }
     }
-  ],
+  }
 }
